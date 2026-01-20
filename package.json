@@ -1,0 +1,46 @@
+{
+  "name": "create-skills",
+  "version": "0.0.1",
+  "description": "Scaffolding tool for creating Agent Skills - quickly generate skill templates with proper structure",
+  "main": "lib/utils.js",
+  "bin": {
+    "create-skills": "./bin/create-skills.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "prepublishOnly": "chmod +x bin/create-skills.js"
+  },
+  "keywords": [
+    "agent-skills",
+    "skills",
+    "ai-agent",
+    "claude",
+    "scaffolding",
+    "template",
+    "generator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.13.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liangshuai/create-skills.git"
+  },
+  "bugs": {
+    "url": "https://github.com/liangshuai/create-skills/issues"
+  },
+  "homepage": "https://github.com/liangshuai/create-skills#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "README.md"
+  ],
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
