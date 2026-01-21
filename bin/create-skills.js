@@ -170,7 +170,8 @@ async function main() {
         name: 'tags',
         message: 'Tags (optional, press Enter to skip):',
       });
-      optionalFields.tags = tagsResponse.tags;
+      // Filter out empty strings from the tags array
+      optionalFields.tags = tagsResponse.tags ? tagsResponse.tags.filter(tag => tag && tag.trim()) : [];
     }
 
     if (!license) {
