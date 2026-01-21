@@ -113,7 +113,7 @@ describe('createDirectoryStructure', () => {
 
 describe('generateSkillMdContent', () => {
   test('generates content with default description', () => {
-    const content = generateSkillMdContent('my-skill');
+    const content = generateSkillMdContent({ name: 'my-skill' });
     expect(content).toContain('name: my-skill');
     expect(content).toContain('description: A skill for my-skill functionality.');
     expect(content).toContain('# My-skill Skill');
@@ -123,18 +123,37 @@ describe('generateSkillMdContent', () => {
 
   test('generates content with custom description', () => {
     const customDesc = 'Custom skill description';
-    const content = generateSkillMdContent('my-skill', customDesc);
+    const content = generateSkillMdContent({ name: 'my-skill', description: customDesc });
     expect(content).toContain('name: my-skill');
     expect(content).toContain(`description: ${customDesc}`);
   });
 
+  test('generates content with optional fields', () => {
+    const content = generateSkillMdContent({
+      name: 'my-skill',
+      description: 'Test description',
+      author: 'Test Author',
+      version: '1.0.0',
+      tags: ['test', 'demo'],
+      license: 'MIT'
+    });
+    expect(content).toContain('name: my-skill');
+    expect(content).toContain('description: Test description');
+    expect(content).toContain('author: Test Author');
+    expect(content).toContain('version: 1.0.0');
+    expect(content).toContain('tags:');
+    expect(content).toContain('- test');
+    expect(content).toContain('- demo');
+    expect(content).toContain('license: MIT');
+  });
+
   test('capitalizes first letter of skill name in title', () => {
-    const content = generateSkillMdContent('my-skill');
+    const content = generateSkillMdContent({ name: 'my-skill' });
     expect(content).toContain('# My-skill Skill');
   });
 
   test('includes proper YAML frontmatter', () => {
-    const content = generateSkillMdContent('test-skill', 'Test description');
+    const content = generateSkillMdContent({ name: 'test-skill', description: 'Test description' });
     expect(content).toMatch(/^---\nname: test-skill\ndescription: Test description\n---/);
   });
 });
@@ -156,18 +175,35 @@ describe('createSkillMd', () => {
   });
 
   test('creates SKILL.md file', () => {
-    createSkillMd(testDir, 'my-skill');
+    createSkillMd(testDir, { name: 'my-skill', description: 'Test' });
     const skillMdPath = path.join(testDir, 'SKILL.md');
     expect(fs.existsSync(skillMdPath)).toBe(true);
   });
 
   test('creates SKILL.md with correct content', () => {
-    createSkillMd(testDir, 'my-skill', 'Custom description');
+    createSkillMd(testDir, { name: 'my-skill', description: 'Custom description' });
     const skillMdPath = path.join(testDir, 'SKILL.md');
     const content = fs.readFileSync(skillMdPath, 'utf8');
     expect(content).toContain('name: my-skill');
     expect(content).toContain('description: Custom description');
     expect(content).toContain('# My-skill Skill');
+  });
+
+  test('creates SKILL.md with optional metadata', () => {
+    createSkillMd(testDir, {
+      name: 'my-skill',
+      description: 'Test',
+      author: 'Test Author',
+      version: '1.0.0',
+      tags: ['test'],
+      license: 'MIT'
+    });
+    const skillMdPath = path.join(testDir, 'SKILL.md');
+    const content = fs.readFileSync(skillMdPath, 'utf8');
+    expect(content).toContain('author: Test Author');
+    expect(content).toContain('version: 1.0.0');
+    expect(content).toContain('tags:');
+    expect(content).toContain('license: MIT');
   });
 });
 
