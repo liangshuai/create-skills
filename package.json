@@ -1,6 +1,6 @@
 {
   "name": "create-skills",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Scaffolding tool for creating Agent Skills - quickly generate skill templates with proper structure",
   "main": "lib/utils.js",
   "bin": {
