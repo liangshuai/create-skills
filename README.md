@@ -9,13 +9,7 @@ Agent Skills are a lightweight, open format for extending AI agent capabilities 
 ## Installation
 
 ```bash
-npm create skills <skill-name>
-```
-
-Or using npx:
-
-```bash
-npx create-skills <skill-name>
+npm init skills <skill-name>
 ```
 
 ## Usage
@@ -25,13 +19,15 @@ npx create-skills <skill-name>
 Create a new skill with a default template:
 
 ```bash
-npm create skills my-skill
+npm init skills my-skill
 ```
 
-Or:
+### Interactive Mode
+
+If you don't provide a skill name or description, you'll be prompted interactively:
 
 ```bash
-npx create-skills my-skill
+npm init skills
 ```
 
 ### With Description
@@ -39,12 +35,29 @@ npx create-skills my-skill
 Provide a custom description for your skill:
 
 ```bash
-npm create skills pdf-processor --description "Process and extract data from PDF files"
+npm init skills pdf-processor --description "Process and extract data from PDF files"
+```
+
+### With Optional Metadata
+
+Include additional metadata like author, version, tags, and license:
+
+```bash
+npm init skills pdf-processor \
+  --description "Process and extract data from PDF files" \
+  --author "John Doe" \
+  --version-flag "1.0.0" \
+  --tags "pdf,processing,documents" \
+  --license "MIT"
 ```
 
 ### Options
 
-- `-d, --description <desc>` - Add a description for the skill
+- `-d, --description <desc>` - Add a description for the skill (optional, will prompt if not provided)
+- `--author <name>` - Author name (optional)
+- `--version-flag <ver>` - Version number (optional)
+- `--tags <tags>` - Comma-separated tags (optional)
+- `--license <license>` - License type (optional)
 - `-h, --help` - Show help information
 - `-v, --version` - Show version number
 
@@ -63,12 +76,18 @@ my-skill/
 
 ### SKILL.md Format
 
-The generated `SKILL.md` includes proper YAML frontmatter:
+The generated `SKILL.md` includes proper YAML frontmatter with required and optional metadata:
 
 ```markdown
 ---
 name: my-skill
 description: A skill for my-skill functionality.
+author: John Doe
+version: 1.0.0
+tags:
+  - pdf
+  - processing
+license: MIT
 ---
 
 # My-skill Skill
@@ -93,13 +112,17 @@ Add any additional notes or considerations here...
 ### Create a PDF Processing Skill
 
 ```bash
-npm create skills pdf-processor --description "Extract text and tables from PDF files"
+npm init skills pdf-processor --description "Extract text and tables from PDF files"
 ```
 
-### Create a Data Analysis Skill
+### Create a Data Analysis Skill with Metadata
 
 ```bash
-npx create-skills data-analyzer -d "Analyze datasets and generate reports"
+npm init skills data-analyzer \
+  --description "Analyze datasets and generate reports" \
+  --author "Jane Doe" \
+  --tags "data,analysis,reports" \
+  --license "Apache-2.0"
 ```
 
 ## Next Steps After Creation
@@ -120,8 +143,11 @@ skills-ref validate ./my-skill
 
 ## Features
 
+- **Interactive Mode**: Prompts for required and optional metadata when not provided
 - **Proper Structure**: Automatically creates the correct directory layout
 - **YAML Frontmatter**: Generates valid SKILL.md with required metadata
+- **Optional Metadata**: Supports author, version, tags, and license fields
+- **Smart Filtering**: Only includes metadata fields that have actual values
 - **Optional Directories**: Includes scripts, references, and assets folders
 - **Validation**: Validates skill names and checks for existing directories
 - **Helpful Messages**: Provides clear next steps and usage information
@@ -148,7 +174,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT © [Your Name]
+MIT
 
 ## Links
 
